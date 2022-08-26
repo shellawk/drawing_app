@@ -30,10 +30,10 @@
   </head>
   <body>
   	<div class="wrapper">
-      <div class="box header">My Drawing App
+      <div class="box header" id="header">My Drawing App
         <button id="clearButton">Clear</button>
-        <button id="saveImageButton">Save Image</button>
-        <a id="link">Hello</a>
+        <button id="saveImageButton" onclick="saveImage()">Save Image</button>
+        <a id="link"></a>
       </div>
       <div class="box" id="sidebar"></div>
       <div id="content">
@@ -45,7 +45,7 @@
         </canvas>
       </div>
       <div id="suggestions" class="box suggestions"></div>
-      <div class="box colourPalette"></div>
+      <div class="box colourPalette" id="colour"></div>
       <div class="box options" id="options"></div>
       </div>
 	</div>

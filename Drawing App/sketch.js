@@ -45,7 +45,7 @@ function setup() {
 	//add the tools to the toolbox.
 	toolbox.addTool(new FreehandTool());
 	toolbox.addTool(new LineToTool());
-	toolbox.addTool(new sprayCanTool);
+	toolbox.addTool(new sprayCanTool());
 	toolbox.addTool(new mirrorDrawTool());
     toolbox.addTool(new RectTool());
     toolbox.addTool(new EllipseTool());
@@ -112,9 +112,9 @@ window.onload = () => {
 	radius = 3;	
 	ctx.lineWidth = radius * 2;
 
-	link = document.getElementById('link');
-	link.setAttribute('download', 'MintyPaper.png');
-	link.setAttribute('href', canvas3.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+	// link = document.getElementById('link');
+	// link.setAttribute('download', 'MintyPaper.png');
+	// link.setAttribute('href', canvas3.toDataURL("image/png").replace("image/png", "image/octet-stream"));
 
 	document.getElementById("clearButton").addEventListener(
 		"click", function () {
@@ -122,17 +122,9 @@ window.onload = () => {
 			inkArray.length = 0;
 			sgs.innerHTML = "";
 		});
-	document.getElementById("saveImageButton").addEventListener(
-		"click", function () {
-			html2canvas(document.getElementById('canvas3'), {
-			allowTaint: true,
-			useCORS: true}).then(function (canvas)
-				{
-					link.setAttribute('download', 'MintyPaper.png');
-					link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
-					link.click();
-				}).catch(function (error) {console.log(error);});
-		});
+	// document.getElementById("saveImageButton").addEventListener("click", function () {
+	// 	saveImage
+	// });
 }
 
 class Ink {
@@ -161,20 +153,28 @@ function displaySuggestions(arr) {
 }
 
 // DRAW METHOD + COORDINATES
+var clientX = 0;
+var clientY = 0;
 var putPoint = function (e) {
 	if (dragging) {
-		ctx.lineTo(e.clientX, e.clientY);
+		clientX = e.clientX;
+		clientY = e.clientY;
+
+		clientX -= canvas.height / 5.6;
+		clientY -= canvas.height / 11.4;
+
+		ctx.lineTo(clientX, clientY);
 		ctx.stroke();
 		ctx.beginPath();
-		ctx.arc(e.clientX, e.clientY, radius, 0, Math.PI * 2);
+		ctx.arc(clientX, clientY, radius, 0, Math.PI * 2);
 		ctx.fill();
 		ctx.beginPath();
-		ctx.moveTo(e.clientX, e.clientY);
+		ctx.moveTo(clientX, clientY);
 		canvas.style.cursor = "none";
 
 
-		var mouseX = parseInt(e.clientX - offsetX);
-		var mouseY = parseInt(e.clientY - offsetY);
+		var mouseX = parseInt(clientX - offsetX);
+		var mouseY = parseInt(clientY - offsetY);
 		var time = Date.now() - startTime;
 		emptyArray3.push(time);
 		emptyArray.push(mouseX);
@@ -291,3 +291,17 @@ var disengage = function () {
 		});
 	}
 };
+
+function saveImage(){
+	document.getElementById('header').setAttribute('style', 'display: none');
+	document.getElementById('colour').setAttribute('style', 'display: none');
+	document.getElementById('options').setAttribute('style', 'display: none');
+	document.getElementById('sidebar').setAttribute('style', 'display: none');
+
+	print();
+
+	document.getElementById('header').setAttribute('style', 'display: block');
+	document.getElementById('colour').setAttribute('style', 'display: flex');
+	document.getElementById('options').setAttribute('style', 'display: block');
+	document.getElementById('sidebar').setAttribute('style', 'display: block');
+}
