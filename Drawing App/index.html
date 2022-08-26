@@ -3,8 +3,8 @@
   <head>
     <script src="./lib/p5.min.js"></script>
     <script src="./lib/p5.dom.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-
+    <!-- <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script> -->
+    
     <script src="./stencils.js"></script>
 
     <!-- <script src="sketch.js"></script> -->
@@ -21,10 +21,8 @@
     <script src="./RectTool.js"></script>
     <script src="./ellipseTool.js"></script>
     <script src="./scissorTool.js"></script>
-    
+    <script src="./autodraw.js"></script>
       
-    
-
       
     <link rel="stylesheet" type="text/css" href="./style.css">
   </head>
@@ -32,6 +30,7 @@
   	<div class="wrapper">
       <div class="box header" id="header">My Drawing App
         <button id="clearButton">Clear</button>
+        <button id="resetButton">Reset</button>
         <button id="saveImageButton" onclick="saveImage()">Save Image</button>
         <a id="link"></a>
       </div>
